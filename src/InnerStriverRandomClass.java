@@ -488,4 +488,52 @@ public class InnerStriverRandomClass {
         }
         return bracStash.empty();
     }
+
+    // 66. Plus One 1st Jan 2026
+    public int[] plusOne(int[] digits) {
+        boolean isLastCarried = false;
+        int i = digits.length - 1;
+        while (i >= 0 ) {
+            if (digits[i] == 9){
+                digits[i] = 0;
+                isLastCarried = true;
+                i--;
+            }else if (digits[i] != 9){
+                digits[i]++;
+                if (isLastCarried) isLastCarried = false;
+                break;
+            }
+        }
+        if (isLastCarried){
+            int[] ans = new int[digits.length + 1];
+            for (int j = 0; j < ans.length; j++) {
+                if (j==0){
+                    ans[0] = 1;
+                    continue;
+                }
+                ans[j] = digits[j-1];
+            }
+            return ans;
+        }
+        return digits;
+    }
+
+    // 961. N-Repeated Element in Size 2N Array 2nd Jan 2026
+    public int repeatedNTimes(int[] nums) {
+        int n = nums.length/2;
+        HashMap<Integer, Integer> numCount = new HashMap<Integer, Integer>();
+        for(int i=0; i<nums.length;i++){
+            if (numCount.containsKey(nums[i])){
+                int currNumCount = numCount.get(nums[i]);
+                if (currNumCount == n - 1){
+                    return nums[i];
+                }else{
+                    numCount.put(nums[i], ++currNumCount);
+                }
+            }else{
+                numCount.put(nums[i], 1);
+            }
+        }
+        return -1;
+    }
 }   
